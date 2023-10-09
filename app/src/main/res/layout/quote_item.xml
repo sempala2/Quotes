@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF"
+    app:cardCornerRadius="10dp"
+    android:elevation="20dp"
+    android:layout_margin="5dp"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/quoteText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" Now this a text representing how the quote would look like  ................."
+            android:textColor="@color/black"
+            android:padding="10sp"
+            android:textSize="20dp"
+            />
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BY William Shakespere"
+            android:textColor="#1B1B1B"
+            android:paddingEnd="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/quoteText"
+            />
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:padding="5dp"
+            android:layout_below="@+id/author"
+            android:textColor="#4A4A4A"/>
+
+        <ImageView
+            android:id="@+id/liked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/author"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/favempty" />
+
+    </RelativeLayout>
+
+
+
+</androidx.cardview.widget.CardView>

@@ -1,14 +1,11 @@
-package com.tanish.quotes;
+package com.tanish256.quotes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -28,9 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
@@ -39,7 +34,6 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.tanish.quotes.QuoteObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,7 +44,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class AuthorviewActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -91,38 +84,38 @@ public class AuthorviewActivity extends AppCompatActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         serializedFavoriteQuote= preferences.getString("favorite_quotes", null);
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
+//        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+//            @Override
+//            public void onInitializationComplete(InitializationStatus initializationStatus) {
+//            }
+//        });
 
-        AdRequest adRequest = new AdRequest.Builder().build();
+//        AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(this,"ca-app-pub-8621721957934319/5398883214", adRequest,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        // The mInterstitialAd reference will be null until
-                        // an ad is loaded.
-                        mInterstitialAd = interstitialAd;
-                        //Log.i(TAG, "onAdLoaded");
-
-                        if (mInterstitialAd != null) {
-                            mInterstitialAd.show(AuthorviewActivity.this);
-                        } else {
-                            Log.d("TAG", "The interstitial ad wasn't ready yet.");
-                        }
-                    }
-
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        // Handle the error
-                        //Log.d(TAG, loadAdError.toString());
-                        mInterstitialAd = null;
-
-                    }
-                });
+//        InterstitialAd.load(this,"ca-app-pub-8621721957934319/5398883214", adRequest,
+//                new InterstitialAdLoadCallback() {
+//                    @Override
+//                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+//                        // The mInterstitialAd reference will be null until
+//                        // an ad is loaded.
+//                        mInterstitialAd = interstitialAd;
+//                        //Log.i(TAG, "onAdLoaded");
+//
+//                        if (mInterstitialAd != null) {
+//                            //mInterstitialAd.show(AuthorviewActivity.this);
+//                        } else {
+//                            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+//                        // Handle the error
+//                        //Log.d(TAG, loadAdError.toString());
+//                        mInterstitialAd = null;
+//
+//                    }
+//                });
         if (getIntent().getExtras().getString("author") != null) {
             author_name = getIntent().getExtras().getString("author");
             urli = "https://favqs.com/api/quotes/?filter=" + author_name + "&type=author&page=";
@@ -192,7 +185,7 @@ public class AuthorviewActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 handleResponse(response);
                 if (mInterstitialAd != null) {
-                    mInterstitialAd.show(this);
+                   // mInterstitialAd.show(this);
                 } else {
                     Log.d("TAG", "The interstitial ad wasn't ready yet.");
                 }

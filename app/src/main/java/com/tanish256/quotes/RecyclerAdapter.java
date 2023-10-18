@@ -1,4 +1,4 @@
-package com.tanish.quotes;
+package com.tanish256.quotes;
 
 
 import android.content.Intent;
@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.tanish.quotes;
+package com.tanish256.quotes;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
@@ -19,7 +19,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class FavouritesFragment extends Fragment {
 

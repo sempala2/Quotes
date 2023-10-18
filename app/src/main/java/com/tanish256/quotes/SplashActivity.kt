@@ -1,4 +1,4 @@
-package com.tanish.quotes
+package com.tanish256.quotes
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

@@ -3,36 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_margin="5dp"
-    android:layout_height="wrap_content">
+    android:layout_height="200dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/Authordp"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_width="wrap_content"
             android:src="@drawable/logo"
-            android:padding="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:padding="25dp"
+            android:layout_height="200dp"/>
 
         <TextView
             android:layout_height="wrap_content"
             android:id="@+id/authorname"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
-            android:layout_alignBottom="@+id/Authordp"
             android:text="Authors Name"
             android:textAlignment="center"
+            android:maxLines="1"
+            android:paddingTop="10dp"
+            android:layout_alignBottom="@id/Authordp"
             app:flow_verticalAlign="center"
-            android:textColor="#000000"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Authordp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+    </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

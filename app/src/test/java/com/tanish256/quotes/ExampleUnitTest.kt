@@ -1,4 +1,4 @@
-package com.tanish.quotes
+package com.tanish256.quotes
 
 import org.junit.Test
 

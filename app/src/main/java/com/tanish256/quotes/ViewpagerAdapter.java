@@ -1,4 +1,4 @@
-package com.tanish.quotes;
+package com.tanish256.quotes;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

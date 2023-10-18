@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Quotes"
         tools:targetApi="31"
-        android:name="com.tanish.quotes.MyAddClas"
+        android:name="com.tanish256.quotes.MyAddClas"
 
         >
 

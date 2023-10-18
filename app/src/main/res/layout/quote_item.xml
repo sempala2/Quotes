@@ -18,7 +18,7 @@
             android:text=" Now this a text representing how the quote would look like  ................."
             android:textColor="@color/black"
             android:padding="10sp"
-            android:textSize="20dp"
+            android:textSize="20sp"
             />
         <TextView
             android:id="@+id/author"

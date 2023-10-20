@@ -14,7 +14,7 @@
             android:id="@+id/cat_img"
             android:layout_width="130dp"
             android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:layout_height="130dp"
             android:src="@drawable/funy"/>
 

@@ -63,7 +63,6 @@ public class Quote extends AppCompatActivity {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = preferences.edit();
-
         // Load favorite quotes from SharedPreferences
         String serializedFavoriteQuote = preferences.getString("favorite_quotes", null);
 

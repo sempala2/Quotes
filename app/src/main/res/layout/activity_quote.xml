@@ -4,13 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/bg1"
     tools:context=".Quote">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/bg"/>
-
     <TextView
         android:id="@+id/quoteText"
         android:layout_width="match_parent"
@@ -23,7 +18,7 @@
         android:text="Now this a text representing how the quote would look like "
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="25sp" />
     <TextView
@@ -32,7 +27,7 @@
         android:layout_marginEnd="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#B2000000"
+        android:textColor="@color/white"
         android:text="BY Albert Einstein"
         android:textSize="20sp"
         android:layout_below="@+id/quoteText"
@@ -40,7 +35,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:background="#B3FFFFFF"
+        android:elevation="2dp"
+        android:layout_height="60dp">
 
         <ImageView
             android:id="@+id/copy"

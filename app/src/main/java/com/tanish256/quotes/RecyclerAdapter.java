@@ -41,6 +41,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 Intent intent = new Intent(view.getContext(),AuthorviewActivity.class);
                 intent.putExtra("author",Items.get(Position).getAuthor());
                 intent.putExtra("tag",Items.get(Position).getTag());
+                intent.putExtra("image",Items.get(Position).getImg());
                 view.getContext().startActivity(intent);
             }
         });

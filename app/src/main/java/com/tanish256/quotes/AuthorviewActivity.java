@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -44,6 +46,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AuthorviewActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -52,6 +57,7 @@ public class AuthorviewActivity extends AppCompatActivity {
     private ImageView back_btn;
     private CallQOTD api_call;
     private String author_name;
+    private int imgdp;
     private String tag;
     private TextView header;
     private Button nextb;
@@ -67,6 +73,7 @@ public class AuthorviewActivity extends AppCompatActivity {
     SharedPreferences preferences;
     ArrayList<QuoteObject> favquotelist;
     String serializedFavoriteQuote;
+    CircleImageView dp;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -83,6 +90,7 @@ public class AuthorviewActivity extends AppCompatActivity {
         backq =findViewById(R.id.backq);
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         serializedFavoriteQuote= preferences.getString("favorite_quotes", null);
+        dp=findViewById(R.id.authorpic);
 
 //        MobileAds.initialize(this, new OnInitializationCompleteListener() {
 //            @Override
@@ -118,13 +126,20 @@ public class AuthorviewActivity extends AppCompatActivity {
 //                });
         if (getIntent().getExtras().getString("author") != null) {
             author_name = getIntent().getExtras().getString("author");
+            imgdp= getIntent().getExtras().getInt("image");
+            Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),imgdp);
+            dp.setImageBitmap(bitmap);
             urli = "https://favqs.com/api/quotes/?filter=" + author_name + "&type=author&page=";
             header.setText(author_name);
         } else if (getIntent().getExtras().getString("tag") != null){
             tag = getIntent().getExtras().getString("tag");
+            imgdp= getIntent().getExtras().getInt("image");
+            Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),imgdp);
+            dp.setImageBitmap(bitmap);
             urli = "https://favqs.com/api/quotes/?filter=" + tag + "&type=tag&page=";
             header.setText(tag);
         }
+
         nextb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

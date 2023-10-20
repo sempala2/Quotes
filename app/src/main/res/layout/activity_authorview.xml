@@ -3,15 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/bg"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".AuthorviewActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:id="@+id/btm"
+        android:background="@drawable/appbar"
+        android:layout_height="160dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="70dp"
+            android:paddingTop="20dp"
+            android:src="@drawable/appname"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
     <Toolbar
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:id="@+id/tab_layout"
-        android:elevation="5dp"
-        android:background="@color/white"
+        android:elevation="4dp"
+        android:layout_alignBottom="@+id/btm"
+        android:background="#FFFFFF"
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,10 +44,22 @@
                 android:id="@+id/header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_toStartOf="@+id/authorpic"
+                android:layout_toEndOf="@+id/back"
                 android:text="Elon Musk"
+                android:textAlignment="center"
                 android:textColor="@color/black"
+                android:layout_centerVertical="true"
                 android:textSize="25sp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/authorpic"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/elonmusk"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"/>
         </RelativeLayout>
 
     </Toolbar>
@@ -76,7 +102,7 @@
                 android:layout_centerVertical="true"
                 android:background="@drawable/round_btn"
                 android:text="Back"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -99,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_btn"
                 android:text="next"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

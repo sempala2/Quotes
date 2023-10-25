@@ -26,7 +26,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class Quote extends AppCompatActivity {
-    private TextView Quote;
+    private TextView Quoted;
     private ImageView share;
     private TextView Author;
     private ImageView back;
@@ -34,89 +34,100 @@ public class Quote extends AppCompatActivity {
     private ImageView like;
     boolean in=true;
     QuoteObject quote;
-    ArrayList<QuoteObject> quotes;
-    ArrayList<QuoteObject> favquotelist;
     SharedPreferences preferences;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote);
-        Quote=findViewById(R.id.quoteText);
+        Quoted=findViewById(R.id.quoteText);
         share =findViewById(R.id.shareq);
         Author=findViewById(R.id.author);
         back=findViewById(R.id.back);
         like=findViewById(R.id.like);
         copy=findViewById(R.id.copy);
-        quotes=new ArrayList<>();
 
         try {
             quote=new QuoteObject(getIntent().getExtras().getString("id"),
                     getIntent().getExtras().getString("quote"),
                     getIntent().getExtras().getString("author"));
         }catch (Exception e) {
-            Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG);
+            Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG).show();
         }
-        quotes.add(quote);
-        Quote.setText(Html.fromHtml(quote.getQuote()));
+        Quoted.setText(Html.fromHtml(quote.getQuote()));
         Author.setText(quote.getAuthor());
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        String json = sharedPreferences.getString("likedQuotes", "");
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor editor = preferences.edit();
-        // Load favorite quotes from SharedPreferences
-        String serializedFavoriteQuote = preferences.getString("favorite_quotes", null);
+        Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<QuoteObject>>(){}.getType();
 
-        if (serializedFavoriteQuote != null) {
-            favquotelist= deserializeQuote(serializedFavoriteQuote);
-            for (QuoteObject quotepl : favquotelist) {
-                if(quotepl.getQId().equals(quote.getQId())) {
+        ArrayList<QuoteObject> likeq;
+        likeq = gson.fromJson(json, type);
+        ArrayList<QuoteObject> likedQuotesArrayList=new ArrayList<>();
+
+        if (likeq!=null){
+            likedQuotesArrayList.addAll(likeq);
+            for (QuoteObject likedQuote : likedQuotesArrayList){
+                if (likedQuote != null && quote != null && likedQuote.getQId() != null && likedQuote.getQId().equals(quote.getQId())) {
+                    // Your code when the QIds match
                     like.setImageResource(R.drawable.favfull);
-                    in = false;
                 }
             }
-
         }
+
+
+// Now you have your ArrayList of liked quotes in likedQuotesArrayList
 
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(in) {
-                    favquotelist.add(quote);
-                    String qp = serializeQuote(favquotelist);
-                    try{
-                        editor.putString("favorite_quotes", qp);
-                        editor.apply();
-                    }catch (Exception e){
-                        Log.e(TAG, e.getMessage());
+                // Check if the quote is already in the list
+
+                int positionToRemove = -1;
+                boolean found = false;
+                if (!likedQuotesArrayList.isEmpty()) {
+                    for (int i = 0; i < likedQuotesArrayList.size(); i++) {
+                        if (likedQuotesArrayList != null && likedQuotesArrayList.get(i) != null && likedQuotesArrayList.get(i).getQId() != null &&
+                                quote != null && quote.getQId() != null &&
+                                likedQuotesArrayList.get(i).getQId().equals(quote.getQId())) {
+                            found = true;
+                            positionToRemove = i;
+                            break;
+                        }
                     }
-                    //Toast.makeText(getApplicationContext(),"Added To Favourites",Toast.LENGTH_LONG).show();
+                }
+
+                // Update SharedPreferences to reflect the change in likedQuotesArrayList
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                if (found) {
+                    // The quote is already in the list; remove it
+                    likedQuotesArrayList.remove(positionToRemove);
+                    like.setImageResource(R.drawable.favempty);
+                    Toast.makeText(getApplicationContext(), "Removed from liked quotes", Toast.LENGTH_SHORT).show();
+                } else {
+                    // The quote is not in the list; add it
+                    likedQuotesArrayList.add(quote);
                     like.setImageResource(R.drawable.favfull);
-                    in = false;
+                    Toast.makeText(getApplicationContext(), "Added to liked quotes", Toast.LENGTH_SHORT).show();
+                }
 
-                }  //else{
-//
-//                    for (int i = 0; i < favquotelist.size(); i++) {
-//                        if (favquotelist.get(i).getQId().equals(quote.getQId())) {
-//                            favquotelist.remove(i); // Remove the quote at position i
-//                            Toast.makeText(getApplicationContext(),"removed",Toast.LENGTH_LONG).show();
-//                            like.setImageResource(R.drawable.favempty);
-//                            in = true;
-//                            break; // Exit the loop once the quote is found and removed
-//                        }
-//                    }
-//                    String qp = serializeQuote(favquotelist);
-//                    editor.putString("favorite_quotes", qp);
-//                    editor.apply();
-//
-//                }
-
+                // Serialize and save likedQuotesArrayList to SharedPreferences
+                Gson gson = new Gson();
+                String json = gson.toJson(likedQuotesArrayList);
+                editor.putString("likedQuotes", json);
+                editor.apply();
             }
         });
+
+
         share.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                String shareBody=Quote.getText()+"\n"+" By "+Author.getText();
+                String shareBody=Quoted.getText()+"\n"+" By "+Author.getText();
                 /*Create an ACTION_SEND Intent*/
                 Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                 /*This will be the actual content you wish you share.*/
@@ -133,7 +144,7 @@ public class Quote extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                ClipData clip =ClipData.newPlainText("quote",Quote.getText()+"\n"+"by "+Author.getText());
+                ClipData clip =ClipData.newPlainText("quote",Quoted.getText()+"\n"+"by "+Author.getText());
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(getApplicationContext(),"copied to clipboard",Toast.LENGTH_LONG).show();
@@ -145,15 +156,6 @@ public class Quote extends AppCompatActivity {
                 finish();
             }
         });
-    }
-    public String serializeQuote(ArrayList<QuoteObject> quote) {
-        Gson gson = new Gson();
-        return gson.toJson(quote);
-    }
-    public ArrayList<QuoteObject> deserializeQuote(String json) {
-        Gson gson = new Gson();
-        Type type = new TypeToken<ArrayList<QuoteObject>>() {}.getType();
-        return gson.fromJson(json, type);
     }
 
 }

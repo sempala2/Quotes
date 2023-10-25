@@ -92,38 +92,39 @@ public class AuthorviewActivity extends AppCompatActivity {
         serializedFavoriteQuote= preferences.getString("favorite_quotes", null);
         dp=findViewById(R.id.authorpic);
 
-//        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-//            @Override
-//            public void onInitializationComplete(InitializationStatus initializationStatus) {
-//            }
-//        });
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
 
-//        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder().build();
 
-//        InterstitialAd.load(this,"ca-app-pub-8621721957934319/5398883214", adRequest,
-//                new InterstitialAdLoadCallback() {
-//                    @Override
-//                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-//                        // The mInterstitialAd reference will be null until
-//                        // an ad is loaded.
-//                        mInterstitialAd = interstitialAd;
-//                        //Log.i(TAG, "onAdLoaded");
-//
+        InterstitialAd.load(this,"ca-app-pub-8621721957934319/5398883214", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        //Log.i(TAG, "onAdLoaded");
+
 //                        if (mInterstitialAd != null) {
-//                            //mInterstitialAd.show(AuthorviewActivity.this);
+//                            Toast.makeText(getApplicationContext(),"ad showing",Toast.LENGTH_SHORT);
+//                            mInterstitialAd.show(AuthorviewActivity.this);
 //                        } else {
-//                            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+//                            Toast.makeText(getApplicationContext(),"Ad not ready!",Toast.LENGTH_SHORT);
 //                        }
-//                    }
-//
-//                    @Override
-//                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-//                        // Handle the error
-//                        //Log.d(TAG, loadAdError.toString());
-//                        mInterstitialAd = null;
-//
-//                    }
-//                });
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        //Log.d(TAG, loadAdError.toString());
+                        mInterstitialAd = null;
+
+                    }
+                });
         if (getIntent().getExtras().getString("author") != null) {
             author_name = getIntent().getExtras().getString("author");
             imgdp= getIntent().getExtras().getInt("image");
@@ -172,7 +173,7 @@ public class AuthorviewActivity extends AppCompatActivity {
         });
 
         // Initialize an empty quotelist and adapter
-        adapter = new AuthorView(quotelist);
+        adapter = new AuthorView(quotelist ,getApplicationContext());
         layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
@@ -199,11 +200,7 @@ public class AuthorviewActivity extends AppCompatActivity {
                 progress.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
                 handleResponse(response);
-                if (mInterstitialAd != null) {
-                   // mInterstitialAd.show(this);
-                } else {
-                    Log.d("TAG", "The interstitial ad wasn't ready yet.");
-                }
+
             } catch (UnsupportedEncodingException | JSONException e) {
                 e.printStackTrace();
             }
@@ -216,8 +213,11 @@ public class AuthorviewActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             // Handle the response
                             handleResponse(response);
-
                             // Cache the response
+                            if (mInterstitialAd != null) {
+                                mInterstitialAd.show(getParent());
+                            } else {
+                            }
                             Cache.Entry cacheEntry = new Cache.Entry();
                             try {
                                 cacheEntry.data = response.toString().getBytes("UTF-8");
@@ -286,7 +286,7 @@ public class AuthorviewActivity extends AppCompatActivity {
 
 
             // Notify the adapter about the data change
-            recyclerView.setAdapter(new AuthorView(quotelist));
+            recyclerView.setAdapter(new AuthorView(quotelist, getApplicationContext()));
             adapter.notifyDataSetChanged();
         } catch (JSONException e) {
             e.printStackTrace();

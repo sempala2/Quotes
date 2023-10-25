@@ -19,6 +19,7 @@ import java.util.Random;
 
 public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.ViewHolder> {
     private ArrayList<QuoteObject> Items;
+    Random rnd = new Random();
     public categoryAdapter(ArrayList<QuoteObject> items) {
         Items = items;
     }
@@ -36,7 +37,6 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.ViewHo
         Bitmap bitmap = BitmapFactory.decodeResource(holder.img.getContext().getResources(), Items.get(position).getImg());
         holder.img.setImageBitmap(bitmap);
         holder.name.setText(Items.get(position).getTag());
-        Random rnd = new Random();
         int colord = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
         holder.color.setBackgroundColor(colord);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

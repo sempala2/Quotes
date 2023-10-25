@@ -11,17 +11,18 @@ android {
         applicationId "com.tanish256.quotes"
         minSdk 21
         targetSdk 34
-        versionCode 4
-        versionName "1.2"
+        versionCode 8
+        versionName "1.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // Dont Enable as it will affect the release version
+//            minifyEnabled false
+//            shrinkResources false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {

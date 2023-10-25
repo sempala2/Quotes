@@ -79,7 +79,8 @@ class MainActivity : AppCompatActivity(){
             val quoteObject = response.getJSONObject("quote")
             val quote = quoteObject.getString("body")
             val author = quoteObject.getString("author")
-            handleQuote(quote, author)
+            val id = quoteObject.getString("id")
+            handleQuote(quote, author,id)
             return
         }
 
@@ -94,9 +95,10 @@ class MainActivity : AppCompatActivity(){
                 val quoteObject = response.getJSONObject("quote")
                 val quote = quoteObject.getString("body")
                 val author = quoteObject.getString("author")
+                val id=quoteObject.getString("id")
 
                 // Handle the obtained quote and author.
-                handleQuote(quote, author)
+                handleQuote(quote, author,id )
 
                 // Cache the response until midnight
                 val cacheEntry = Cache.Entry()
@@ -114,11 +116,12 @@ class MainActivity : AppCompatActivity(){
     }
 
 
-    private fun handleQuote(quote: String, author: String) {
+    private fun handleQuote(quote: String, author: String,id:String) {
         Toast.makeText(this, "Daily Quote", Toast.LENGTH_LONG).show()
         var intent = Intent(this, Quote::class.java)
         intent.putExtra("quote",quote)
         intent.putExtra("author",author)
+        intent.putExtra("id",id)
         startActivity(intent)
     }
 

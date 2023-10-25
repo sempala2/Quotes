@@ -1,6 +1,7 @@
 package com.tanish256.quotes;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -47,33 +48,26 @@ public class FavouritesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_favourites, container, false);
         // To load a favorite quote
         recyclerView=view.findViewById(R.id.recyclerview);
+        ArrayList<QuoteObject> likedQuotesArrayList = new ArrayList<>();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        String json = sharedPreferences.getString("likedQuotes", "");
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String serializedFavoriteQuote = preferences.getString("favorite_quotes", null);
-        if (serializedFavoriteQuote != null) {
-            ArrayList<QuoteObject> favoriteQuote = deserializeQuote(serializedFavoriteQuote);
-            for (QuoteObject quotepl : favoriteQuote) {
-                quotepl.setLiked(true);
-            }
-            adapter = new AuthorView(favoriteQuote);
+        Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<QuoteObject>>(){}.getType();
+        likedQuotesArrayList = gson.fromJson(json, type);
+
+        if (likedQuotesArrayList!=null) {
+            adapter = new AuthorView(likedQuotesArrayList,getContext());
             layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(layoutManager);
-            Toast.makeText(getContext(),String.valueOf(favoriteQuote.size()),Toast.LENGTH_SHORT).show();
             adapter.notifyDataSetChanged();
 
         }
-        else{
-            Toast.makeText(getContext(),"empty",Toast.LENGTH_SHORT).show();
-        }
+
 
 
         return view;
 
-    }
-    public ArrayList<QuoteObject> deserializeQuote(String json) {
-        Gson gson = new Gson();
-        Type type = new TypeToken<ArrayList<QuoteObject>>() {}.getType();
-        return gson.fromJson(json, type);
     }
 }

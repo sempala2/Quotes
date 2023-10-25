@@ -67,14 +67,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp"
-        app:cardBackgroundColor="#00000000"
+        app:cardCornerRadius="30dp"
+        app:cardBackgroundColor="#26FFFFFF"
         android:layout_centerInParent="true"
         android:layout_marginHorizontal="20dp"
         >
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:background="#1AFFFFFF"
+            android:background="#26FFFFFF"
             android:paddingVertical="50dp"
             android:paddingHorizontal="5dp"
             android:elevation="0dp"
@@ -85,14 +85,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:fontFamily="sans-serif-smallcaps"
+                android:fontFamily="@font/antipasto_regular"
                 android:gravity="center"
-                android:letterSpacing="0.05"
+                android:letterSpacing="0.06"
                 android:text="Now this a text representing how the quote would look like "
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/white"
-                android:textSize="25sp"
+                android:textSize="27sp"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/author"
@@ -100,8 +100,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
+                android:fontFamily="@font/gabriele_regular"
                 android:text="BY Albert Einstein"
-                android:textSize="20sp"
+                android:letterSpacing="0.1"
+                android:textSize="27sp"
                 android:layout_marginTop="50dp"
                 android:layout_below="@+id/quoteText"
                 android:textAlignment="textEnd"/>
